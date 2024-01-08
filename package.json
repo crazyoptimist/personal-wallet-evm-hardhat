@@ -1,5 +1,8 @@
 {
   "name": "smart-wallet",
+  "scripts": {
+    "test": "hardhat test test/Vault.js"
+  },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
     "hardhat": "^2.19.4",
