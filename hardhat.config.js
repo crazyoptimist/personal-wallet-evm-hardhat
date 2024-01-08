@@ -1,4 +1,5 @@
 require("@nomicfoundation/hardhat-toolbox");
+require("@nomicfoundation/hardhat-verify");
 require("dotenv").config();
 
 const ETH_FORK_BLOCK_NUMBER = 18963379;
@@ -27,5 +28,12 @@ module.exports = {
   },
   solidity: {
     compilers: COMPILERS,
+  },
+  // Below 2 attributes are for contract verification
+  etherscan: {
+    apiKey: process.env.ETHERSCAN_API_KEY,
+  },
+  sourcify: {
+    enabled: true,
   },
 };
