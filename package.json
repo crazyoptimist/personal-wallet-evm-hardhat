@@ -1,6 +1,7 @@
 {
   "name": "smart-wallet",
   "scripts": {
+    "deploy:ethereum": "hardhat run scripts/deployVault.js --network ethereum",
     "test": "hardhat test test/Vault.js"
   },
   "devDependencies": {
