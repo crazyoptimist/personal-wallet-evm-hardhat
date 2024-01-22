@@ -11,26 +11,19 @@ contract Vault is Ownable {
     constructor() Ownable(msg.sender) {}
 
     function withdraw() external onlyOwner {
-        (bool success, ) = payable(owner()).call{
-            value: address(this).balance
-        }("");
+        (bool success,) = payable(owner()).call{value: address(this).balance}("");
         require(success, "ETH withdrawal failed");
     }
 
     function withdrawTo(address _to) external onlyOwner {
-        (bool success, ) = payable(_to).call{ value: address(this).balance }(
-            ""
-        );
+        (bool success,) = payable(_to).call{value: address(this).balance}("");
         require(success, "ETH withdrawal(to) failed");
     }
 
     function sendETH(uint256 _amount, address _to) external onlyOwner {
-        require(
-            address(this).balance > _amount,
-            "Insufficient balance for sendETH"
-        );
+        require(address(this).balance > _amount, "Insufficient balance for sendETH");
 
-        (bool success, ) = payable(_to).call{ value: _amount }("");
+        (bool success,) = payable(_to).call{value: _amount}("");
         require(success, "Sending ETH failed");
     }
 
@@ -39,22 +32,18 @@ contract Vault is Ownable {
         IERC20(_token).safeTransfer(owner(), tokenBalance);
     }
 
-    function sendToken(
-        address _token,
-        uint256 _amount,
-        address _to
-    ) external onlyOwner {
+    function sendToken(address _token, uint256 _amount, address _to) external onlyOwner {
         uint256 tokenBalance = IERC20(_token).balanceOf(address(this));
         require(tokenBalance > _amount, "Insufficient token balance");
 
         IERC20(_token).safeTransfer(_to, _amount);
     }
 
-    function getBalance() public view returns (uint) {
+    function getBalance() public view returns (uint256) {
         return address(this).balance;
     }
 
-    function getTokenBalance(address _token) public view returns (uint) {
+    function getTokenBalance(address _token) public view returns (uint256) {
         return IERC20(_token).balanceOf(address(this));
     }
 
